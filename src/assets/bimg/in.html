@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <div style="display:none;">
+    <img id="source" src="./bbga.jpg" />
+  </div>
+  <!-- <img src="./bg.png" /> -->
+</body>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const image = document.getElementById("source");
+    const canvas = document.getElementById("canvas");
+    image.addEventListener("load", () => {
+      const sourceWidth = 350;
+      const sourceHeight = 214;
+      canvas.width = sourceWidth;
+      canvas.height = sourceHeight;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(image, 579.25, 613, sourceWidth, sourceHeight, 0, 0, sourceWidth, sourceHeight);
+    });
+  });
+</script>
+
+</html>

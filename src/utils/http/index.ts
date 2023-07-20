@@ -189,6 +189,11 @@ class PureHttp {
   ): Promise<P> {
     return this.request<P>("get", url, params, config);
   }
+
+  /** 单独抽离的delete工具函数 */
+  public delete<T>(url: string, id: string): Promise<T> {
+    return this.request("delete", `${url}/${id}`);
+  }
 }
 
 export const http = new PureHttp();

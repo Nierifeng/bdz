@@ -7,7 +7,7 @@ const monitoringRouter: RouteConfigsTable = {
   },
   children: [
     {
-      path: "/monitoring/monitoring/index",
+      path: "/monitoring/monitoring/list",
       name: "monitoring",
       component: () => import("@/views/monitoring/monitoring/list/index.vue"),
       meta: {
@@ -15,12 +15,31 @@ const monitoringRouter: RouteConfigsTable = {
       }
     },
     {
-      path: "/moitoring/configManager/index",
+      path: "/moitoring/configManager/list",
       name: "configManager",
       component: () =>
         import("@/views/monitoring/config-manager/list/index.vue"),
       meta: {
         title: "配置管理"
+      }
+    },
+    {
+      path: "/monitoring/data-identification/list",
+      name: "dataIdentification",
+      component: () =>
+        import("@/views/monitoring/data-identification/list/index.vue"),
+      meta: {
+        title: "数据识别"
+      }
+    },
+    {
+      path: "/monitoring/data-identification/screenshot/:id",
+      name: "screenshot",
+      component: () =>
+        import("@/views/monitoring/data-identification/screenshot/index.vue"),
+      meta: {
+        title: "截图",
+        showLink: false
       }
     }
   ]
