@@ -1,4 +1,4 @@
-import { DataIdentification, Monitoring } from "@/models";
+import { AITraining, DataIdentification, Monitoring } from "@/models";
 
 const dataIdentificationDatas: Array<DataIdentification> = [
   {
@@ -51,4 +51,37 @@ const monitoringDatas: Array<Monitoring> = [
   }
 ];
 
-export { dataIdentificationDatas, monitoringDatas };
+const aiTrainingDatas: Array<AITraining> = [
+  {
+    name: "AI1",
+    image: "https://pure-admin.github.io/pure-admin-table/imgs/1.jpg",
+    type: "1",
+    id: "1"
+  },
+  {
+    name: "AI2",
+    image: "https://pure-admin.github.io/pure-admin-table/imgs/2.jpg",
+    type: "2",
+    id: "2"
+  },
+  {
+    name: "AI3",
+    image: "https://pure-admin.github.io/pure-admin-table/imgs/3.jpg",
+    type: "3",
+    id: "3"
+  },
+  {
+    name: "AI4",
+    image: "https://pure-admin.github.io/pure-admin-table/imgs/4.jpg",
+    type: "4",
+    id: "4"
+  },
+  {
+    name: "AI5",
+    image: "https://pure-admin.github.io/pure-admin-table/imgs/5.jpg",
+    type: "5",
+    id: "5"
+  }
+];
+
+export { dataIdentificationDatas, monitoringDatas, aiTrainingDatas };

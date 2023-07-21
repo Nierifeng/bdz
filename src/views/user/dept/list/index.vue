@@ -39,7 +39,7 @@
         >
       </template>
       <template v-slot="{ size }">
-        <PureTable
+        <PureTableBar
           align="center"
           showOverflowTooltip
           table-layout="auto"
@@ -94,7 +94,7 @@
               </template>
             </el-popconfirm>
           </template>
-        </PureTable>
+        </PureTableBar>
       </template>
     </TableProBar>
     <addDeptDialog
@@ -109,7 +109,7 @@
 
 <script setup lang="ts">
 import { deleteDept, getDeptList } from "@/api/user/dept";
-import { TableProBar } from "@/components/ReTable";
+import { PureTableBar } from "@/components/RePureTableBar";
 import { handleTree } from "@/utils/tree";
 import { FormInstance } from "element-plus";
 import { onMounted, reactive, ref } from "vue";

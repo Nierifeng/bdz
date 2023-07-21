@@ -52,7 +52,7 @@
         >
       </template>
       <template v-slot="{ size }">
-        <PureTable
+        <PureTableBar
           align="center"
           showOverflowTooltip
           table-layout="auto"
@@ -108,7 +108,7 @@
               </template>
             </el-popconfirm>
           </template>
-        </PureTable>
+        </PureTableBar>
       </template>
     </TableProBar>
     <addRoleDialog
@@ -121,14 +121,14 @@
 </template>
 
 <script setup lang="ts">
-import { deleteRole, getRoleList, updateRole } from '@/api/user/role';
-import { TableProBar } from '@/components/ReTable';
-import { PaginationProps } from '@pureadmin/table';
-import { ElMessage, ElMessageBox, FormInstance } from 'element-plus';
-import { onMounted, reactive, ref } from 'vue';
-import { useColumns } from './columns';
-import addRoleDialog from '../components/add-role-dialog.vue';
-import { Role } from '@/modules';
+import { deleteRole, getRoleList, updateRole } from "@/api/user/role";
+import { PureTableBar } from "@/components/RePureTableBar";
+import { PaginationProps } from "@pureadmin/table";
+import { ElMessage, ElMessageBox, FormInstance } from "element-plus";
+import { onMounted, reactive, ref } from "vue";
+import { Role } from "@/models";
+import { useColumns } from "./columns";
+import addRoleDialog from "../components/add-role-dialog.vue";
 
 const { columns } = useColumns();
 
@@ -140,11 +140,11 @@ const showAddDialog = ref(false);
 let role = undefined;
 
 const form = reactive({
-  name: '',
+  name: "",
   status: null,
   pageIndex: 1,
   pageSize: 10,
-  key: ''
+  key: ""
 });
 
 const pagination = reactive<PaginationProps>({
@@ -155,8 +155,8 @@ const pagination = reactive<PaginationProps>({
 });
 
 const stateOptions = ref([
-  { label: '启用', value: true },
-  { label: '禁用', value: false }
+  { label: "启用", value: true },
+  { label: "禁用", value: false }
 ]);
 
 const dataList = ref([]);
@@ -189,16 +189,16 @@ function editRole(row: Role) {
 
 async function handleDelete(id) {
   await deleteRole(id);
-  ElMessage.success('删除成功');
+  ElMessage.success("删除成功");
   onSearch();
 }
 
 function handleStatusChange(row: Role) {
-  const text = row.status ? '启用' : '停用';
+  const text = row.status ? "启用" : "停用";
   ElMessageBox.confirm(`确定要${text} ${row.name}吗？`, {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning'
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning"
   })
     .then(function () {
       return updateRole({ ...row, status: !row.status });

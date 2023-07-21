@@ -92,7 +92,7 @@
             >
           </template>
           <template v-slot="{ size }">
-            <PureTable
+            <PureTableBar
               align="center"
               showOverflowTooltip
               table-layout="auto"
@@ -145,7 +145,7 @@
                   </template>
                 </el-popconfirm>
               </template>
-            </PureTable>
+            </PureTableBar>
           </template>
         </TableProBar>
       </el-col>
@@ -160,33 +160,33 @@
 </template>
 
 <script setup lang="ts">
-import { getDeptList } from '@/api/user/dept';
-import { deleteUser, getUser, getUserList, updateUser } from '@/api/user/user';
-import { TableProBar } from '@/components/ReTable';
-import { User } from '@/modules';
-import { handleTree } from '@/utils/tree';
-import { PaginationProps } from '@pureadmin/table';
-import { ElMessage, ElMessageBox, ElTree, FormInstance } from 'element-plus';
-import { onMounted, reactive, ref, watch } from 'vue';
-import addUserDialog from '../components/add-user-dialog.vue';
-import { useColumns } from './columns';
+import { getDeptList } from "@/api/user/dept";
+import { deleteUser, getUser, getUserList, updateUser } from "@/api/user/user";
+import { PureTableBar } from "@/components/RePureTableBar";
+import { User } from "@/modules";
+import { handleTree } from "@/utils/tree";
+import { PaginationProps } from "@pureadmin/table";
+import { ElMessage, ElMessageBox, ElTree, FormInstance } from "element-plus";
+import { onMounted, reactive, ref, watch } from "vue";
+import addUserDialog from "../components/add-user-dialog.vue";
+import { useColumns } from "./columns";
 
 const { columns } = useColumns();
 
 const formRef = ref<FormInstance>();
 
 const deptTreeRef = ref<InstanceType<typeof ElTree>>();
-const deptName = ref('');
+const deptName = ref("");
 const deptOptions = ref([]);
 const loading = ref(false);
 const userDialog = ref(false);
 const form = reactive({
-  name: '',
-  status: '',
-  phonenumber: '',
+  name: "",
+  status: "",
+  phonenumber: "",
   pageIndex: 1,
   pageSize: 10,
-  createdTime: '',
+  createdTime: "",
   deptId: -1
 });
 
@@ -198,8 +198,8 @@ const pagination = reactive<PaginationProps>({
 });
 
 const stateOptions = ref([
-  { label: '启用', value: 1 },
-  { label: '禁用', value: 2 }
+  { label: "启用", value: 1 },
+  { label: "禁用", value: 2 }
 ]);
 
 const dataList = ref([]);
@@ -213,7 +213,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
 let selectUser = null;
 
 async function getDeptOptions() {
-  const { data } = await getDeptList({ name: '' });
+  const { data } = await getDeptList({ name: "" });
   deptOptions.value = handleTree(data);
 }
 
@@ -228,16 +228,16 @@ function handleSizeChange(val: number) {
 }
 
 function handleStatusChange(row: User) {
-  const text = row.status ? '启用' : '停用';
+  const text = row.status ? "启用" : "停用";
   ElMessageBox.confirm(`确定要${text} ${row.userName}用户吗？`, {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning'
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning"
   })
     .then(function () {
       return getUser(row.id).then(data => {
         return updateUser({
-          description: '',
+          description: "",
           ...data.data,
           status: !data.data.status
         });
@@ -267,7 +267,7 @@ function handleEdit(row) {
 
 async function handleDelete(userId: number) {
   await deleteUser(userId);
-  ElMessage.success('删除成功');
+  ElMessage.success("删除成功");
   onSearch();
 }
 

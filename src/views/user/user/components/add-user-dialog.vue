@@ -125,13 +125,13 @@
 </template>
 
 <script setup lang="ts">
-import { addUser, getUser, updateUser } from '@/api/user/user';
-import { getDeptList } from '@/api/user/dept';
-import { getRoleList } from '@/api/user/role';
-import { Role, User } from '@/modules';
-import { ElMessage, FormInstance, FormRules } from 'element-plus';
-import { onMounted, reactive, ref, watch } from 'vue';
-import { handleTree } from '@/utils/tree';
+import { addUser, getUser, updateUser } from "@/api/user/user";
+import { getDeptList } from "@/api/user/dept";
+import { getRoleList } from "@/api/user/role";
+import { Role, User } from "@/modules";
+import { ElMessage, FormInstance, FormRules } from "element-plus";
+import { onMounted, reactive, ref, watch } from "vue";
+import { handleTree } from "@/utils/tree";
 
 interface Props {
   visible: boolean;
@@ -142,58 +142,58 @@ const props = withDefaults(defineProps<Props>(), {
   visible: false
 });
 
-const emit = defineEmits(['update:visible', 'updateList']);
+const emit = defineEmits(["update:visible", "updateList"]);
 
-const title = ref('添加用户');
+const title = ref("添加用户");
 
 const form = ref<FormInstance>();
 
 const formData = ref<User>({
-  nickName: '',
-  userName: '',
-  password: '',
-  email: '',
+  nickName: "",
+  userName: "",
+  password: "",
+  email: "",
   status: true,
-  phoneNumber: '',
-  description: ''
+  phoneNumber: "",
+  description: ""
 });
 
 const rules = reactive<FormRules>({
   userName: [
-    { required: true, message: '请输入名称', trigger: 'blur' },
+    { required: true, message: "请输入名称", trigger: "blur" },
     {
       min: 2,
       max: 20,
-      message: '用户名称长度必须介于 2 和 20 之间',
-      trigger: 'blur'
+      message: "用户名称长度必须介于 2 和 20 之间",
+      trigger: "blur"
     },
     {
       pattern: /^[a-zA-Z0-9_]{2,20}$/,
-      message: '用户名称只能包含字母、数字和下划线'
+      message: "用户名称只能包含字母、数字和下划线"
     }
   ],
-  nickName: [{ required: true, message: '请输入昵称', trigger: 'blur' }],
+  nickName: [{ required: true, message: "请输入昵称", trigger: "blur" }],
   password: [
-    { required: true, message: '请输入密码', trigger: 'blur' },
+    { required: true, message: "请输入密码", trigger: "blur" },
     {
       min: 5,
       max: 20,
-      message: '用户密码长度必须介于 5 和 20 之间',
-      trigger: 'blur'
+      message: "用户密码长度必须介于 5 和 20 之间",
+      trigger: "blur"
     }
   ],
   phonenumber: [
     {
       pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/,
-      message: '请输入正确的手机号码',
-      trigger: 'blur'
+      message: "请输入正确的手机号码",
+      trigger: "blur"
     }
   ],
   email: [
     {
       pattern: /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/,
-      message: '请输入正确的邮箱地址',
-      trigger: 'blur'
+      message: "请输入正确的邮箱地址",
+      trigger: "blur"
     }
   ]
 });
@@ -203,8 +203,8 @@ const dialogTableVisible = ref(false);
 const deptOptions = ref([]);
 
 const stateOptions = ref([
-  { label: '启用', value: true },
-  { label: '禁用', value: false }
+  { label: "启用", value: true },
+  { label: "禁用", value: false }
 ]);
 
 const roleOptions = ref<Array<Role>>([]);
@@ -226,20 +226,20 @@ async function confirmClick() {
       await updateUser(formData.value);
     }
     ElMessage({
-      message: isCreate ? '添加成功' : '修改成功',
-      type: 'success'
+      message: isCreate ? "添加成功" : "修改成功",
+      type: "success"
     });
     dialogTableVisible.value = false;
-    emit('updateList');
+    emit("updateList");
   });
 }
 
 async function getDeptOptions() {
   const { data } = await getDeptList({
-    name: '',
-    email: '',
+    name: "",
+    email: "",
     status: true,
-    phoneNumber: ''
+    phoneNumber: ""
   });
   console.log(data);
 
@@ -250,7 +250,7 @@ async function getRoleOptions() {
   const { data } = await getRoleList({
     pageIndex: 1,
     pageSize: 1000,
-    name: ''
+    name: ""
   });
   roleOptions.value = data.data;
 }
@@ -258,7 +258,7 @@ async function getRoleOptions() {
 watch(
   () => dialogTableVisible.value,
   val => {
-    emit('update:visible', val);
+    emit("update:visible", val);
   }
 );
 
@@ -269,7 +269,7 @@ onMounted(async () => {
     const user = await getUser(props.userId);
     formData.value = { ...formData.value, ...user.data };
     isCreate = false;
-    title.value = '编辑用户';
+    title.value = "编辑用户";
   }
   await getDeptOptions();
   await getRoleOptions();

@@ -41,6 +41,14 @@ const monitoringRouter: RouteConfigsTable = {
         title: "截图",
         showLink: false
       }
+    },
+    {
+      path: "/monitoring/ai-training/list",
+      name: "aiTraining",
+      component: () => import("@/views/monitoring/ai-training/list/index.vue"),
+      meta: {
+        title: "AI训练"
+      }
     }
   ]
 };
